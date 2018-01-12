@@ -48,8 +48,6 @@ public class WebSocketManager : MonoBehaviour
     public void Connect(string ip, int port = 9090)
     {
         ws = new WebSocket("ws://" + ip + ":" + port.ToString());
-        //unadvertise_queue = new Queue<string>();
-        //sublist = new List<SubscriberImpl>();
         ws.OnOpen += (sender, e) =>
         {
             Debug.Log("WebSocket Open");
@@ -57,27 +55,14 @@ public class WebSocketManager : MonoBehaviour
 
         ws.OnMessage += (sender, e) =>
         {
-            //Debug.Log("WebSocket Message Type: " + e.GetType() + ", Data: " + e.Data);
             NoMsgSubTopic nmst = JsonUtility.FromJson<NoMsgSubTopic>(e.Data);
             foreach (var sl in sublist)
             {
                 if (sl.Topic == nmst.topic)
                 {
-                    //Debug.Log(sl.Topic);
                     sl.CallbackEvent(e.Data);
                 }
             }
-            //Debug.Log(nmst);y6-^\^^\^[[[
-            //Debug.Log(nmst.op);
-            //Debug.Log(nmst.topic);
-            //Debug.Log(nmst.msg);
-            //foreach (var sl in sublist)
-            //{
-            //    if (sl == nmst.topic)
-            //    {
-            //        Debug.Log(sl);
-            //    }
-            //}
         };
 
         ws.OnError += (sender, e) =>
@@ -92,13 +77,10 @@ public class WebSocketManager : MonoBehaviour
 
         ws.Connect();
         connected = true;
-        //Debug.Log("connected");
     }
 
     public bool Send(string msg)
     {
-        //Debug.Log("Send");
-        //Debug.Log(msg);
         if (connected)
         {
             ws.Send(msg);
