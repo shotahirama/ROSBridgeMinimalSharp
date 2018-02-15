@@ -43,7 +43,31 @@ public class SubscriberManager<T> : SubscriberManager where T : MessageType
 
     private SubscribeData<T> ParseJson(string msg)
     {
-        return JsonUtility.FromJson<SubscribeData<T>>(msg);
+        var data = msg;
+        var starttopic = data.IndexOf("topic") - 1;
+        var topiccomma = data.IndexOf(",", starttopic) + 1;
+        if (topiccomma == 0)
+        {
+            topiccomma = data.Length;
+        }
+        data = data.Remove(starttopic, topiccomma - starttopic);
+        var startop = data.IndexOf("op") - 1;
+        var opcomma = data.IndexOf(",", starttopic) + 1;
+        if (opcomma == 0)
+        {
+            opcomma = data.Length;
+        }
+        data = data.Remove(startop, opcomma - startop);
+        var colon = data.IndexOf(":") + 1;
+        data = data.Remove(0, colon);
+        data = data.Substring(0, data.Length - 2);
+        var dddata = JsonUtility.FromJson<T>(data);
+        NoMsgSubTopic nmst = JsonUtility.FromJson<NoMsgSubTopic>(msg);
+        var subsub = new SubscribeData<T>();
+        subsub.topic = nmst.topic;
+        subsub.msg = dddata;
+        return subsub;
+        //return JsonUtility.FromJson<SubscribeData<T>>(msg);
     }
     
     public SubscriberManager(string topic, Action<T> callback)
