@@ -30,7 +30,7 @@ public abstract class SubscriberManager
             return topic;
         }
     }
-    
+
     public abstract void CallbackEvent(string msg);
 }
 
@@ -44,15 +44,15 @@ public class SubscriberManager<T> : SubscriberManager where T : MessageType
     private SubscribeData<T> ParseJson(string msg)
     {
         var data = msg;
-        var starttopic = data.IndexOf("topic") - 1;
+        var starttopic = data.IndexOf("topic\":") - 1;
         var topiccomma = data.IndexOf(",", starttopic) + 1;
         if (topiccomma == 0)
         {
             topiccomma = data.Length;
         }
         data = data.Remove(starttopic, topiccomma - starttopic);
-        var startop = data.IndexOf("op") - 1;
-        var opcomma = data.IndexOf(",", starttopic) + 1;
+        var startop = data.IndexOf("op\":") - 1;
+        var opcomma = data.IndexOf(",", startop) + 1;
         if (opcomma == 0)
         {
             opcomma = data.Length;
@@ -69,7 +69,7 @@ public class SubscriberManager<T> : SubscriberManager where T : MessageType
         return subsub;
         //return JsonUtility.FromJson<SubscribeData<T>>(msg);
     }
-    
+
     public SubscriberManager(string topic, Action<T> callback)
     {
         sub = new Subscribe();
