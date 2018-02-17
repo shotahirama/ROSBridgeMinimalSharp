@@ -38,7 +38,6 @@ public class WebSocketManager : MonoBehaviour
     void Awake()
     {
         Connect(ip);
-
     }
 
     void Start()
@@ -95,7 +94,7 @@ public class WebSocketManager : MonoBehaviour
 
     private void OnDestroy()
     {
-        Debug.Log(unadvertise_queue.Count);
+        //Debug.Log(unadvertise_queue.Count);
         while (unadvertise_queue.Count > 0)
         {
             string hoge = unadvertise_queue.Dequeue();

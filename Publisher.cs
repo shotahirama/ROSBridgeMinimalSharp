@@ -41,7 +41,7 @@ public class Publisher<T> where T : MessageType, new()
         messagetype = new T();
         Advertise adv = new Advertise();
         adv.topic = topic;
-        adv.type = messagetype.GetType();  
+        adv.type = messagetype.GetType();
         WebSocketManager.Instance.Send(JsonUtility.ToJson(adv));
         UnAdvertise unadv = new UnAdvertise();
         unadv.topic = topic;

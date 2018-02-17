@@ -52,7 +52,6 @@ public class TimeType : MessageType
     public override string GetType()
     {
         return "";
-
     }
 }
 
@@ -68,3 +67,30 @@ public class Pose : MessageType
     }
 }
 
+[Serializable]
+public class SensorImage : MessageType
+{
+    public Header header;
+    public int height;
+    public int width;
+    public string encoding;
+    public byte is_bigendian;
+    public int step;
+    public string data;
+    public override string GetType()
+    {
+        return "sensor_msgs/Image";
+    }
+}
+
+[Serializable]
+public class CompressedImage : MessageType
+{
+    public Header header;
+    public string format;
+    public string data;
+    public override string GetType()
+    {
+        return "sensor_msgs/CompressedImage";
+    }
+}
