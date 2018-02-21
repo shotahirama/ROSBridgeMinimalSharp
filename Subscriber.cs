@@ -35,7 +35,7 @@ public abstract class SubscriberManager
 }
 
 
-public class SubscriberManager<T> : SubscriberManager where T : MessageType
+public class SubscriberManager<T> : SubscriberManager where T : ROSMessageType
 {
     Subscribe sub;
     public readonly T messageType;
@@ -86,7 +86,7 @@ public class SubscriberManager<T> : SubscriberManager where T : MessageType
     }
 }
 
-public class Subscriber<T> where T : MessageType
+public class Subscriber<T> where T : ROSMessageType
 {
     private string topic;
 

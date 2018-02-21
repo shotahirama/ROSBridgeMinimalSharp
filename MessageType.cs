@@ -3,13 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-abstract public class MessageType
+abstract public class ROSMessageType
 {
     public abstract string GetType();
 }
 
 [Serializable]
-public class StdString : MessageType
+public class StdString : ROSMessageType
 {
     public string data;
     public override string GetType()
@@ -19,7 +19,7 @@ public class StdString : MessageType
 }
 
 [Serializable]
-public class PoseArray : MessageType
+public class PoseArray : ROSMessageType
 {
     public Header header;
     public Pose[] poses;
@@ -32,7 +32,7 @@ public class PoseArray : MessageType
 }
 
 [Serializable]
-public class Header : MessageType
+public class Header : ROSMessageType
 {
     public int seq;
     public TimeType stamp;
@@ -45,7 +45,7 @@ public class Header : MessageType
 }
 
 [Serializable]
-public class TimeType : MessageType
+public class TimeType : ROSMessageType
 {
     public int secs;
     public int nsecs;
@@ -56,7 +56,7 @@ public class TimeType : MessageType
 }
 
 [Serializable]
-public class Pose : MessageType
+public class Pose : ROSMessageType
 {
     public Vector3 position;
     public Quaternion orientation;
@@ -68,7 +68,7 @@ public class Pose : MessageType
 }
 
 [Serializable]
-public class SensorImage : MessageType
+public class SensorImage : ROSMessageType
 {
     public Header header;
     public int height;
@@ -84,7 +84,7 @@ public class SensorImage : MessageType
 }
 
 [Serializable]
-public class CompressedImage : MessageType
+public class CompressedImage : ROSMessageType
 {
     public Header header;
     public string format;

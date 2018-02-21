@@ -29,7 +29,7 @@ public class Publish<T>
     public T msg;
 }
 
-public class Publisher<T> where T : MessageType, new()
+public class Publisher<T> where T : ROSMessageType, new()
 {
     private string topic;
     Publish<T> pub;
