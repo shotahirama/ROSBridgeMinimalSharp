@@ -94,3 +94,71 @@ public class CompressedImage : ROSMessageType
         return "sensor_msgs/CompressedImage";
     }
 }
+
+[Serializable]
+public class PoseStamped:ROSMessageType
+{
+    public Header header;
+    public Pose pose;
+    public override string GetType()
+    {
+        return "geometry_msgs/PoseStamped";
+    }
+}
+
+[Serializable]
+public class NavPath : ROSMessageType
+{
+    public Header header;
+    public PoseStamped[] poses;
+    public override string GetType()
+    {
+        return "nav_msgs/Path";
+    }
+}
+
+[Serializable]
+public class PoseWithCovariance : ROSMessageType
+{
+    public Pose pose;
+    public float[] covariance;
+    public override string GetType()
+    {
+        return "geometry_msgs/PoseWithCovariance";
+    }
+}
+
+[Serializable]
+public class TwistWithCovariance : ROSMessageType
+{
+    public Twist pose;
+    public float[] covariance;
+    public override string GetType()
+    {
+        return "geometry_msgs/TwistWithCovariance";
+    }
+}
+
+[Serializable]
+public class Twist : ROSMessageType
+{
+    public Vector3 linear;
+    public Vector3 angular;
+    public override string GetType()
+    {
+        return "geometry_msgs/PoseWithCovariance";
+    }
+}
+
+[Serializable]
+public class Odometry : ROSMessageType
+{
+    public Header header;
+    public string child_frame_id;
+    public PoseWithCovariance pose;
+    public TwistWithCovariance twist;
+    public override string GetType()
+    {
+        return "nav_mags/Odometry";
+    }
+}
